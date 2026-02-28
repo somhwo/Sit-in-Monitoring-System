@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCS | Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar', { page: page }) %>
+
+  <div class="page-body">
+    <div class="auth-card">
+
+      <!-- Form Side -->
+      <div class="auth-form-side">
+        <a href="/" class="back-btn">← Back</a>
+        <h2 class="auth-title">Sign In</h2>
+
+        <form id="loginForm" action="/login" method="POST" novalidate>
+          <div style="display:flex;flex-direction:column;gap:0.9rem;">
+
+            <div class="form-group" id="grp-idNumber">
+              <label for="idNumber">ID Number</label>
+              <input type="text" id="idNumber" name="idNumber" placeholder="e.g. 2021-00001" autocomplete="username">
+              <span class="error-msg">Please enter your ID number.</span>
+            </div>
+
+            <div class="form-group" id="grp-password">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
+              <span class="error-msg">Please enter your password.</span>
+            </div>
+
+          </div>
+
+          <button type="submit" class="submit-btn">Login</button>
+        </form>
+
+        <p class="auth-link">Don't have an account? <a href="/register">Register here</a></p>
+      </div>
+
+      <!-- Illustration Side -->
+      <div class="auth-illus-side">
+        <div class="illus-icon">
+          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="36" cy="24" r="14" stroke="white" stroke-width="3" fill="rgba(255,255,255,0.15)"/>
+            <path d="M8 62c0-15.464 12.536-28 28-28s28 12.536 28 28" stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <circle cx="52" cy="50" r="10" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+            <path d="M48.5 50.5l2.5 2.5 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="illus-text">
+          <h3>Welcome Back!</h3>
+          <p>Sign in to access the CCS Sit-in Monitoring System and manage your sessions.</p>
+        </div>
+        <div class="illus-dots">
+          <svg width="80" height="20" viewBox="0 0 80 20" fill="none">
+            <circle cx="10" cy="10" r="4" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="26" cy="10" r="4" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="42" cy="10" r="4" fill="rgba(255,255,255,0.2)"/>
+            <circle cx="58" cy="10" r="4" fill="rgba(255,255,255,0.15)"/>
+            <circle cx="74" cy="10" r="4" fill="rgba(255,255,255,0.1)"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function(e) {
+      let valid = true;
+      const fields = [
+        { id: 'idNumber', grp: 'grp-idNumber' },
+        { id: 'password', grp: 'grp-password' },
+      ];
+      fields.forEach(({ id, grp }) => {
+        const input = document.getElementById(id);
+        const group = document.getElementById(grp);
+        if (!input.value.trim()) {
+          group.classList.add('has-error');
+          valid = false;
+        } else {
+          group.classList.remove('has-error');
+        }
+      });
+      if (!valid) e.preventDefault();
+    });
+
+    document.querySelectorAll('.form-group input').forEach(input => {
+      input.addEventListener('input', function() {
+        this.closest('.form-group').classList.remove('has-error');
+      });
+    });
+  </script>
+</body>
+</html>
