@@ -1,0 +1,54 @@
+/* ── Tailwind directives ── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+/*
+  Only keeping styles that CANNOT be expressed with Tailwind utility classes:
+  custom animations, the floating icon, the card entry, and the
+  sliding-panel transition used in Register.
+*/
+
+/* Float animation on the login illustration icon */
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float-icon { animation: floatIcon 3s ease-in-out infinite; }
+
+/* Card entry animation */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-card-in { animation: cardIn 0.45s cubic-bezier(.22,.8,.45,1) both; }
+
+/* Auth-box entry (register page) */
+@keyframes boxIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-box-in { animation: boxIn 0.5s cubic-bezier(.22,.8,.45,1) both; }
+
+/* Sliding side-panel + form-panel transition (register → login) */
+.auth-box.sliding .side-panel  { transform: translateX(160%); }
+.auth-box.sliding .form-panel  { opacity: 0; transform: translateX(-40px); }
+.side-panel  { transition: transform 0.7s cubic-bezier(.77,0,.18,1); }
+.form-panel  { transition: opacity 0.4s ease, transform 0.7s cubic-bezier(.77,0,.18,1); }
+
+/* Hamburger → X morph */
+.hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+.hamburger span { transition: all 0.3s ease; }
+
+/* Progress step pulse on active dot */
+.step.active .step-dot {
+  background: white;
+  border-color: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+.step.done .step-dot { background: #ffe082; border-color: #ffe082; }
